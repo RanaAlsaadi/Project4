@@ -3,6 +3,11 @@ package Project4;
 public class Main{
 
     public static void main(String []args){
+    	
+    	// same array sizes and divisions will be preserved for new code version.
+    	// tasks
+    	// - improve time complexity if possible
+    	// - add delay tolerance
        int a[]=getArray(10);
        printSolution(a,10,3);
        a=getArray(50);
