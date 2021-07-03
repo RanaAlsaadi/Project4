@@ -111,6 +111,6 @@ public class LinearPartition{
 	       System.out.println("final optimal_weights" );
 	       System.out.println(Arrays.deepToString(optimal_weights));
 	       
-	       return 0;
+	       return optimal_weights[k-1][n-1];
 	    }
 	}
