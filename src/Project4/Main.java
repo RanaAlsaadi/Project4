@@ -8,30 +8,34 @@ public class Main{
     	// tasks
     	// - improve time complexity if possible
     	// - add delay tolerance
-       int a[]=getArray(10);
-       printSolution(a,10,3);
-       a=getArray(50);
-       printSolution(a,50,15);
-       a=getArray(100);
-       printSolution(a,100,30);
-       a=getArray(500);
-       printSolution(a,500,60);
-       a=getArray(500);
-       printSolution(a,500,100);
+    	// - clarify naming of functions
+    	// - minimize # inputs
+    	// - generate data output
+ 
+       //int a[] = generateArray(5);
+    	//int a[] = {1,2,3,4,5};
+    	int a[] = {5,9,3,2,8,4,6,11};
+    	//int a[] = {5,9,3,2,8};
+    	partitionAndEvaluate(a,2);
+       //a = generateArray(50);
+       //partitionAndEvaluate(a,15);
+//       a = generateArray(100);
+//       partitionAndEvaluate(a,30);
+//       a = generateArray(500);
+//       partitionAndEvaluate(a,60);
+//       a = generateArray(500);
+//       partitionAndEvaluate(a,100);
     }
-    public static void printSolution(int arr[],int n,int k){
-        LinearPartition obj=new LinearPartition();
-        long start = System.nanoTime();
-        int ans=obj.minimumPartitionSum(n,k,arr);
-        long end = System.nanoTime();
-        long duration=end-start;
-        System.out.println("Time taken for "+n+" elements with "+k+" partitions : "+duration+"ns");
-        System.out.println(ans);
+    public static void partitionAndEvaluate(int arr[],int k){
+        LinearPartition LP_object = new LinearPartition();
+        int num_executions = LP_object.evaluateLinearPartition(k,arr);
+        System.out.println("Number of num_executions for "+ arr.length +" elements with "+k+" partitions : "+ num_executions);
+        System.out.println(num_executions);
     }
-    public static int[] getArray(int len){
-        int arr[]=new int[len];
-        for(int i=0;i<len;i++){
-            arr[i]=(int)(Math.random()*len);
+    public static int[] generateArray(int len){
+        int arr[] = new int[len];
+        for(int i = 0 ; i<len ; i++){
+            arr[i] = (int)(Math.random()*len+1);
         }
         return arr;
     }
