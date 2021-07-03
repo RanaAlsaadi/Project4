@@ -1,8 +1,70 @@
 package Project4;
 
 import java.util.Arrays;
+import java.util.Calendar;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.BufferedWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.text.DateFormat;
 
 public class LinearPartition{
+		public static int[] generateArray(int len){
+	        int arr[] = new int[len];
+	        for(int i = 0 ; i<len ; i++){
+	            arr[i] = (int)(Math.random()*len+1);
+	        }
+	        return arr;
+	    }
+	
+		public static void partitionAndEvaluate(int arr[],int k, int is_verbose, int csv_output_enabled){
+
+	        LinearPartitionResult current_result = LinearPartition.evaluateLinearPartition(k,arr, is_verbose);
+
+	        if(is_verbose != 0)
+	        {
+	        	System.out.println(arr.length + ","  + current_result.number_of_partitions + "," + current_result.optimal_weight + "," + current_result.executions + "," + current_result.indices_skipped);
+	        }
+	        
+	        if(csv_output_enabled != 0)
+	        {
+	        	Date today = Calendar.getInstance().getTime();
+	        	DateFormat date_string_format = new SimpleDateFormat("yyyy-MM-dd");
+	        	
+	        	String output_filename = "output_" + date_string_format.format(today) + ".csv";
+	        	
+	        	if(is_verbose != 0)
+		        {
+	        		System.out.println(output_filename);
+		        }
+	        	
+	        	try (PrintWriter fw = new PrintWriter(new FileWriter(output_filename,true)))
+	        	{
+	        		try (BufferedWriter bw = new BufferedWriter(fw))
+		        	{
+	        		
+	        		bw.write(arr.length + ","  + current_result.number_of_partitions + "," + current_result.optimal_weight + "," + current_result.executions + "," + current_result.indices_skipped);
+	        		bw.newLine();
+	        		bw.close();
+		        	}
+	        		catch(IOException e)
+		        	{
+		        		System.out.println(e.getMessage());
+		        	}
+	        	} catch(FileNotFoundException e)
+	        	{
+	        		System.out.println(e.getMessage());
+	        	}catch(IOException e)
+	        	{
+	        		System.out.println(e.getMessage());
+	        	}
+	        }
+	        
+	    }
+	    
 	   public static LinearPartitionResult evaluateLinearPartition(int k,int ar[], int is_verbose){
 
 		   int indices_skipped = 0;
