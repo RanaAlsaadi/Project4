@@ -11,27 +11,54 @@ public class Main{
     	// - clarify naming of functions
     	// - minimize # inputs
     	// - generate data output
+    	
+    	int is_verbose = 0;
  
-       //int a[] = generateArray(5);
-    	//int a[] = {1,2,3,4,5};
-    	int a[] = {5,9,3,2,8,4,6,11};
-    	//int a[] = {5,9,3,2,8};
-    	//partitionAndEvaluate(a,2);
-    	partitionAndEvaluate(a,3);
-       //a = generateArray(50);
-       //partitionAndEvaluate(a,15);
-//       a = generateArray(100);
-//       partitionAndEvaluate(a,30);
-//       a = generateArray(500);
-//       partitionAndEvaluate(a,2);
-//       a = generateArray(500);
-//       partitionAndEvaluate(a,100);
+    	//sample simple minimum 
+    	//int a[] = {5,9,3,2,8,4,6,11};
+    	//partitionAndEvaluate(a,3, is_verbose);
+       
+    	int min_array_size = 100;
+    	int max_array_size = 1000;
+    	int array_size_increment = 100;
+    	
+    	int min_num_partitions = 100;
+    	int max_num_partitions = 1000;
+    	int num_partitions_increment = 100;
+    	
+    	for(int current_array_size = min_array_size; current_array_size < max_array_size ; current_array_size += array_size_increment)
+    	{
+    		for(int current_num_partitions = min_num_partitions; current_num_partitions < max_num_partitions ; current_num_partitions += num_partitions_increment)
+        	{
+    			if(is_verbose != 0)
+                {
+    				System.out.println("current_array_size: "+ current_array_size + " current_num_partitions: " + current_num_partitions);
+                }
+    			
+    			int a[] = generateArray(current_array_size);
+    			partitionAndEvaluate(a,current_num_partitions, 0);
+    			
+        	}
+    	}
+    	
+
     }
-    public static void partitionAndEvaluate(int arr[],int k){
-        LinearPartition LP_object = new LinearPartition();
-        int num_executions = LP_object.evaluateLinearPartition(k,arr);
-        System.out.println("Number of num_executions for "+ arr.length +" elements with "+k+" partitions : "+ num_executions);
-        System.out.println(num_executions);
+    public static void partitionAndEvaluate(int arr[],int k, int is_verbose){
+        //LinearPartition LP_object = new LinearPartition();
+        //int optimal_weight = LP_object.evaluateLinearPartition(k,arr, is_verbose);
+        LinearPartitionResult current_result = LinearPartition.evaluateLinearPartition(k,arr, is_verbose);
+        int optimal_weight = current_result.optimal_weight;
+        
+        if(is_verbose != 0)
+        {
+        	System.out.println("Optimal weight for "+ arr.length +" elements with "+k+" partitions : "+ optimal_weight);
+        }
+        else
+        {
+        	System.out.println(arr.length + ","  + k + "," + optimal_weight);
+        }
+        
+        
     }
     public static int[] generateArray(int len){
         int arr[] = new int[len];
