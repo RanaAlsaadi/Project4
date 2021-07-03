@@ -16,13 +16,14 @@ public class Main{
     	//int a[] = {1,2,3,4,5};
     	int a[] = {5,9,3,2,8,4,6,11};
     	//int a[] = {5,9,3,2,8};
-    	partitionAndEvaluate(a,2);
+    	//partitionAndEvaluate(a,2);
+    	partitionAndEvaluate(a,3);
        //a = generateArray(50);
        //partitionAndEvaluate(a,15);
 //       a = generateArray(100);
 //       partitionAndEvaluate(a,30);
 //       a = generateArray(500);
-//       partitionAndEvaluate(a,60);
+//       partitionAndEvaluate(a,2);
 //       a = generateArray(500);
 //       partitionAndEvaluate(a,100);
     }
