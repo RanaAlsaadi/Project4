@@ -1,0 +1,43 @@
+---
+title: "optimal_partition_report figures"
+author: "Nelson Jaimes"
+date: "7/3/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r load_data, include = FALSE, echo = FALSE}
+library(readxl)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(ggplot2)
+library(forcats)
+library(cowplot)
+library(purrr)
+library(tibble)
+library(wesanderson)
+library(knitr)
+library(plotly)
+
+setwd("~/from_github/Project4")
+
+raw_data <- read.csv(file = "output_2021-07-03.csv", header = TRUE)
+
+```
+
+## Plots
+
+
+```{r pressure, echo=FALSE}
+#plot(raw_data)
+
+#plot_ly(raw_data, x=~length, y = ~number_of_partitions, z = ~optimal_weight, type="scatter3d", mode="markers",color = ~length)
+plot_ly(raw_data, x=~length, y = ~number_of_partitions, z = ~executions, type="scatter3d", mode="markers",color = ~length)
+#plot_ly(raw_data, x=~length, y = ~number_of_partitions, z = ~indices skipped, type="scatter3d", mode="markers",color = ~length)
+#plot_ly(raw_data, x=~length, y = ~executions, z = ~indices_skipped, type="scatter3d", mode="markers",color = ~length)
+```
+Figure 1. This plot shows how the number of executions decreases as the number of partitions decrease, with a greater effect as the difference between array length and number of partitions becomes larger.
