@@ -6,10 +6,14 @@ import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.io.BufferedWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.text.DateFormat;
+ 
 
 public class LinearPartition{
 		public static int[] generateArray(int len){
@@ -22,6 +26,7 @@ public class LinearPartition{
 	
 		public static void partitionAndEvaluate(int arr[],int k, int is_verbose, int csv_output_enabled){
 
+			
 	        LinearPartitionResult current_result = LinearPartition.evaluateLinearPartition(k,arr, is_verbose);
 
 	        if(is_verbose != 0)
@@ -41,14 +46,26 @@ public class LinearPartition{
 	        		System.out.println(output_filename);
 		        }
 	        	
+	        	int write_header =0;
+    			Path current_path = Paths.get("./"+ output_filename);
+    			if(Files.notExists(current_path))
+    			{
+    				write_header=1;
+    			}
+	        	
 	        	try (PrintWriter fw = new PrintWriter(new FileWriter(output_filename,true)))
 	        	{
 	        		try (BufferedWriter bw = new BufferedWriter(fw))
 		        	{
-	        		
-	        		bw.write(arr.length + ","  + current_result.number_of_partitions + "," + current_result.optimal_weight + "," + current_result.executions + "," + current_result.indices_skipped);
-	        		bw.newLine();
-	        		bw.close();
+	        			if(write_header!=0)
+	        			{
+	        				bw.write("length" + ","  + "number_of_partitions" + "," + "optimal_weight" + "," + "executions" + "," + "indices_skipped");
+    		        		bw.newLine();
+    		        		
+	        			}
+		        		bw.write(arr.length + ","  + current_result.number_of_partitions + "," + current_result.optimal_weight + "," + current_result.executions + "," + current_result.indices_skipped);
+		        		bw.newLine();
+		        		bw.close();
 		        	}
 	        		catch(IOException e)
 		        	{
