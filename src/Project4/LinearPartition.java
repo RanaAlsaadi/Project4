@@ -24,10 +24,10 @@ public class LinearPartition{
 	        return arr;
 	    }
 	
-		public static void partitionAndEvaluate(int arr[],int k, int is_verbose, int csv_output_enabled){
+		public static void partitionAndEvaluate(int arr[],int k, int is_verbose, int csv_output_enabled, int delay_tolerance_size){
 
 			
-	        LinearPartitionResult current_result = LinearPartition.evaluateLinearPartition(k,arr, is_verbose);
+	        LinearPartitionResult current_result = LinearPartition.evaluateLinearPartition(k,arr, is_verbose, delay_tolerance_size);
 
 	        if(is_verbose != 0)
 	        {
@@ -82,7 +82,7 @@ public class LinearPartition{
 	        
 	    }
 	    
-	   public static LinearPartitionResult evaluateLinearPartition(int k,int ar[], int is_verbose){
+	   public static LinearPartitionResult evaluateLinearPartition(int k,int ar[], int is_verbose, int delay_tolerance_size){
 
 		   int indices_skipped = 0;
 		   int executions = 0;
@@ -187,12 +187,18 @@ public class LinearPartition{
 	            		   
 	            		   int right_window_end_index_offset = array_length_index +1; // right window offset index calculated
 	            		   
+	            		   right_window_end_index_offset =  Math.min(n-1, right_window_end_index_offset + delay_tolerance_size);
+	            		   
 	            		   //find offset from right window offset index
 		            	   int right_window_offset = 0;
 		            	   if(right_window_end_index_offset < n)
 		            	   {
 		            		   right_window_offset = sum_from_last[ right_window_end_index_offset ]; 
 		            	   }
+		            	   
+		            	   //adjust indices for delay tolerance
+		            	   left_window_index = Math.min(n-1, left_window_index + delay_tolerance_size);
+		            	   
 
 		            	   //find values that will be compared at the current boundary
 		            	   int left_window_value = optimal_weights[num_partition_index-1][left_window_index]; // left value is stored in optimal_weights

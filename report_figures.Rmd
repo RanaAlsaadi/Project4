@@ -25,19 +25,21 @@ library(plotly)
 
 setwd("~/from_github/Project4")
 
-raw_data <- read.csv(file = "output_2021-07-03.csv", header = TRUE)
+
 
 ```
 
 ## Plots
 
 
-```{r pressure, echo=FALSE}
-#plot(raw_data)
-
-#plot_ly(raw_data, x=~length, y = ~number_of_partitions, z = ~optimal_weight, type="scatter3d", mode="markers",color = ~length)
+```{r Figure1, echo=FALSE}
+raw_data <- read.csv(file = "output_2021-07-03.csv", header = TRUE)
 plot_ly(raw_data, x=~length, y = ~number_of_partitions, z = ~executions, type="scatter3d", mode="markers",color = ~length)
-#plot_ly(raw_data, x=~length, y = ~number_of_partitions, z = ~indices skipped, type="scatter3d", mode="markers",color = ~length)
-#plot_ly(raw_data, x=~length, y = ~executions, z = ~indices_skipped, type="scatter3d", mode="markers",color = ~length)
 ```
-Figure 1. This plot shows how the number of executions decreases as the number of partitions decrease, with a greater effect as the difference between array length and number of partitions becomes larger.
+Figure 1. This plot shows how the number of executions decreases as the number of partitions decrease, with a greater effect as the difference between array length and number of partitions becomes larger. This data uses delay tolerance. It appears to have greater variability than without delay tolerance.
+
+```{r Figure2, echo=FALSE}
+raw_data_not_delay_tolerant <- read.csv(file = "output_2021-07-03_not_delay_tolerant.csv", header = TRUE)
+plot_ly(raw_data_not_delay_tolerant, x=~length, y = ~number_of_partitions, z = ~executions, type="scatter3d", mode="markers",color = ~length)
+```
+Figure 2. This plot shows how the number of executions decreases as the number of partitions decrease, with a greater effect as the difference between array length and number of partitions becomes larger. This is data without delay tolerance. It appears to have less variability than with delay tolerance.

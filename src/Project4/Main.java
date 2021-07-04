@@ -31,6 +31,8 @@ public class Main{
     	
     	int random_number_repetitions = 3;
     	
+    	int delay_tolerance_size = 2;
+    	
     	for(int current_repetition = 0; current_repetition < random_number_repetitions ; current_repetition++)
     	{
 	    	for(int current_array_size = min_array_size; current_array_size < max_array_size ; current_array_size += array_size_increment)
@@ -45,7 +47,7 @@ public class Main{
 	                    }
 	        			
 	        			int a[] = LinearPartition.generateArray(current_array_size);
-	        			LinearPartition.partitionAndEvaluate(a,current_num_partitions, is_verbose, csv_output_enabled);
+	        			LinearPartition.partitionAndEvaluate(a,current_num_partitions, is_verbose, csv_output_enabled, delay_tolerance_size);
 	    			}
 	        	}
 	    	}
