@@ -31,7 +31,12 @@ public class LinearPartition{
 
 	        if(is_verbose != 0)
 	        {
-	        	System.out.println(arr.length + ","  + current_result.number_of_partitions + "," + current_result.optimal_weight + "," + current_result.executions + "," + current_result.indices_skipped);
+	        	System.out.println("partitionAndEvaluate results:" + 
+	        " arr.length: " + arr.length + ","  + 
+	        " number_of_partitions: " + current_result.number_of_partitions + "," + 
+	        " optimal_weight: " + current_result.optimal_weight + "," + 
+	        " executions: " + current_result.executions + "," + 
+	        " indices_skipped: " + current_result.indices_skipped);
 	        }
 	        
 	        if(csv_output_enabled != 0)
@@ -191,18 +196,22 @@ public class LinearPartition{
 	            		   
 	            		   //find offset from right window offset index
 		            	   int right_window_offset = 0;
-		            	   if(right_window_end_index_offset < n)
+		            	   if(right_window_end_index_offset < n-1)
 		            	   {
 		            		   right_window_offset = sum_from_last[ right_window_end_index_offset ]; 
 		            	   }
 		            	   
-		            	   //adjust indices for delay tolerance
-		            	   left_window_index = Math.min(n-1, left_window_index + delay_tolerance_size);
+		            	   if(delay_tolerance_size != 0) {
+		            		 //adjust indices for delay tolerance
+			            	   left_window_index = Math.min(n-1, left_window_index + delay_tolerance_size);
+		            	   }
+		            	   
 		            	   
 
 		            	   //find values that will be compared at the current boundary
 		            	   int left_window_value = optimal_weights[num_partition_index-1][left_window_index]; // left value is stored in optimal_weights
 		            	   int right_window_value = sum_from_last[ right_window_start_index ] - right_window_offset; // right value is calculated as a subtraction from one field to another.
+		            	   
 		            	   
 		            	   //calculate the max weight using this boundary
 		            	   int current_max = Math.max(left_window_value, right_window_value);
@@ -255,6 +264,8 @@ public class LinearPartition{
 		       
 		       System.out.println("final optimal_weights" );
 		       System.out.println(Arrays.deepToString(optimal_weights));
+		       
+		       System.out.println("optimal weight of input array: " + optimal_weights[k-1][n-1] );
 		   }
 	       
 	       //optimal weight is at optimal_weights[k-1][n-1]
